@@ -66,9 +66,6 @@ def main():
       print('Config backup will be downloaded to ' + downloads_path)
 
 
-  ##################################### 
-  ##      BOOT FIRMWARE UPGRADE      ##
-  #####################################
   print("\nConnecting to https://192.168.2.200...")
   try:
     driver.get('https://192.168.2.200')
@@ -84,99 +81,120 @@ def main():
   user = driver.find_element(By.ID, "uname").send_keys('admin')
   # Find texbox for password, enter password and login
   password = driver.find_element(By.ID, "pass").send_keys('westermo' + Keys.ENTER)
-  # Navigate to maintenance menu
-  maintenance = driver.find_element(By.ID, "menu_maintenance").click()
-  # Navigate to maintenance menu
-  firmware = driver.find_element(By.ID, "menu_firmware").click()
-  # Enable uploading of firmware file
-  enableupload = driver.find_element(By.XPATH, "//*[@id='content']/form[1]/a").click()
-  # Choose file to upload via Windows menu
-  choosefile = driver.find_element(By.XPATH, "//*[@id='fw_file']").send_keys(firmware_file_path)
-  # Select option/image
-  #imageupgrade = driver.find_element(By.NAME, "target_image").click()
+  
+  # Check firmware versions
+  driver.find_element(By.XPATH, "//*[@id='menu_status']").click()  # Status menu
+  driver.find_element(By.XPATH, "//*[@id='menu_system_details']").click()
+  time.sleep(1)
+  primary_version = driver.find_element(By.XPATH, "//*[@id='value_fw_ver']").text
+  backup_version = driver.find_element(By.XPATH, "//*[@id='value_bkp_fw_ver']").text
+  bootloader_version = driver.find_element(By.XPATH, "//*[@id='value_bootload_ver']").text
+  driver.find_element(By.XPATH, "//*[@id='menu_status']").click()  # Back to status menu
+  
+  print("Primary firmare:\t" + primary_version)
+  print("Backup firmaware:\t" + backup_version)
+  print("Bootloader version:\t" + bootloader_version)
+  
+  
+  ##################################### 
+  ##      BOOT FIRMWARE UPGRADE      ##
+  #####################################
+  if bootloader_version != "2017.12.0-8":
+    # Navigate to maintenance menu
+    maintenance = driver.find_element(By.ID, "menu_maintenance").click()
+    # Navigate to maintenance menu
+    firmware = driver.find_element(By.ID, "menu_firmware").click()
+    # Enable uploading of firmware file
+    enableupload = driver.find_element(By.XPATH, "//*[@id='content']/form[1]/a").click()
+    # Choose file to upload via Windows menu
+    choosefile = driver.find_element(By.XPATH, "//*[@id='fw_file']").send_keys(firmware_file_path)
+    # Select option/image
+    #imageupgrade = driver.find_element(By.NAME, "target_image").click()
 
-  # Select option/image
-  drop = Select(driver.find_element(By.NAME, "target_image"))
-  drop.select_by_index(2)     ## select BOOT
+    # Select option/image
+    drop = Select(driver.find_element(By.NAME, "target_image"))
+    drop.select_by_index(2)     ## select BOOT
 
-  # Apply upgrade
-  print("Upgrading boot firmware...")
-  enableupload = driver.find_element(By.NAME, "apply").click()
-  # Wait until the upgrade is ready
-  print("Waiting for ", sleep_time, " seconds")
-  time.sleep(sleep_time)
-  print("Boot firmware upgrade complete")
+    # Apply upgrade
+    print("Upgrading boot firmware...")
+    enableupload = driver.find_element(By.NAME, "apply").click()
+    # Wait until the upgrade is ready
+    print("Waiting for ", sleep_time, " seconds")
+    time.sleep(sleep_time)
+    print("Boot firmware upgrade complete")
 
   ########################################
   ##      PRIMARY FIRMWARE UPGRADE      ##
   #######################################3
-  try:
-    driver.get('https://192.168.2.200/?action=home')
-  except:
-    print("Could not connect to 192.168.2.200, check network interface IP")
-    print("Exiting application")
-    exit()
+  if primary_version != "4.32.1":
+    try:
+      driver.get('https://192.168.2.200/?action=home')
+    except:
+      print("Could not connect to 192.168.2.200, check network interface IP")
+      print("Exiting application")
+      exit()
 
-  # Find texbox for username and enter information
-  user = driver.find_element(By.ID, "uname").send_keys('admin')
-  # Find texbox for password, enter password and login
-  password = driver.find_element(By.ID, "pass").send_keys('westermo' + Keys.ENTER)
-  # Navigate to maintenance menu
-  maintenance = driver.find_element(By.ID, "menu_maintenance").click()
-  # Navigate to maintenance menu
-  firmware = driver.find_element(By.ID, "menu_firmware").click()
-  # Enable uploading of firmware file
-  enableupload = driver.find_element(By.XPATH, "//*[@id='content']/form[1]/a").click()
-  # Choose file to upload via Windows menu
-  choosefile = driver.find_element(By.XPATH, "//*[@id='fw_file']").send_keys(firmware_file_path)
-  # Select option/image
-  #imageupgrade = driver.find_element(By.NAME, "target_image").click()
-  # Select option/image
-  drop = Select(driver.find_element(By.NAME, "target_image"))
-  drop.select_by_index(0)     ## select PRIMARY
+    # Find texbox for username and enter information
+    user = driver.find_element(By.ID, "uname").send_keys('admin')
+    # Find texbox for password, enter password and login
+    password = driver.find_element(By.ID, "pass").send_keys('westermo' + Keys.ENTER)
+    # Navigate to maintenance menu
+    maintenance = driver.find_element(By.ID, "menu_maintenance").click()
+    # Navigate to maintenance menu
+    firmware = driver.find_element(By.ID, "menu_firmware").click()
+    # Enable uploading of firmware file
+    enableupload = driver.find_element(By.XPATH, "//*[@id='content']/form[1]/a").click()
+    # Choose file to upload via Windows menu
+    choosefile = driver.find_element(By.XPATH, "//*[@id='fw_file']").send_keys(firmware_file_path)
+    # Select option/image
+    #imageupgrade = driver.find_element(By.NAME, "target_image").click()
+    # Select option/image
+    drop = Select(driver.find_element(By.NAME, "target_image"))
+    drop.select_by_index(0)     ## select PRIMARY
 
-  # Apply upgrade
-  print("Upgrading primary firmware...")
-  enableupload = driver.find_element(By.NAME, "apply").click()
-  # Wait until the upgrade is ready
-  print("Waiting for", sleep_time, " seconds")
-  time.sleep(sleep_time)
-  print("Primary firmware upgrade complete")
+    # Apply upgrade
+    print("Upgrading primary firmware...")
+    enableupload = driver.find_element(By.NAME, "apply").click()
+    # Wait until the upgrade is ready
+    print("Waiting for", sleep_time, " seconds")
+    time.sleep(sleep_time)
+    print("Primary firmware upgrade complete")
 
   ######################################
   ##      BACKUP FIRMWARE UPGRADE     ##
   ######################################
-  try:
-    driver.get('https://192.168.2.200/?action=home')
-  except:
-    print("Could not connect to 192.168.2.200, check network interface IP")
-    print("Exiting application")
-    exit()
-  # Find texbox for username and enter information
-  user = driver.find_element(By.ID, "uname").send_keys('admin')
-  # Find texbox for password, enter password and login
-  password = driver.find_element(By.ID, "pass").send_keys('westermo' + Keys.ENTER)
-  # Navigate to maintenance menu
-  maintenance = driver.find_element(By.ID, "menu_maintenance").click()
-  # Navigate to maintenance menu
-  firmware = driver.find_element(By.ID, "menu_firmware").click()
-  time.sleep(1)
-  # Enable uploading of firmware file
-  enableupload = driver.find_element(By.XPATH, "//*[@id='content']/form[1]/a").click()
-  # Choose file to upload via Windows menu
-  choosefile = driver.find_element(By.XPATH, "//*[@id='fw_file']").send_keys(firmware_file_path)
-  # Select option/image
-  drop = Select(driver.find_element(By.NAME, "target_image"))
-  drop.select_by_index(1)     ## select BACKUP
-  print("Upgrading backup firmware...")
+  if backup_version != "4.32.1":
+    try:
+      driver.get('https://192.168.2.200/?action=home')
+    except:
+      print("Could not connect to 192.168.2.200, check network interface IP")
+      print("Exiting application")
+      exit()
+    # Find texbox for username and enter information
+    user = driver.find_element(By.ID, "uname").send_keys('admin')
+    # Find texbox for password, enter password and login
+    password = driver.find_element(By.ID, "pass").send_keys('westermo' + Keys.ENTER)
+    # Navigate to maintenance menu
+    maintenance = driver.find_element(By.ID, "menu_maintenance").click()
+    # Navigate to maintenance menu
+    firmware = driver.find_element(By.ID, "menu_firmware").click()
+    time.sleep(1)
+    # Enable uploading of firmware file
+    enableupload = driver.find_element(By.XPATH, "//*[@id='content']/form[1]/a").click()
+    # Choose file to upload via Windows menu
+    choosefile = driver.find_element(By.XPATH, "//*[@id='fw_file']").send_keys(firmware_file_path)
+    # Select option/image
+    drop = Select(driver.find_element(By.NAME, "target_image"))
+    drop.select_by_index(1)     ## select BACKUP
+    print("Upgrading backup firmware...")
 
-  # Apply upgrade
-  enableupload = driver.find_element(By.NAME, "apply").click()
-  # Wait until the upgrade is ready
-  print("Waiting for", sleep_time, " seconds")
-  time.sleep(sleep_time)
-  driver.get('https://192.168.2.200/?action=home')
-  print("Backup firmware upgrade complete")
+    # Apply upgrade
+    enableupload = driver.find_element(By.NAME, "apply").click()
+    # Wait until the upgrade is ready
+    print("Waiting for", sleep_time, " seconds")
+    time.sleep(sleep_time)
+    driver.get('https://192.168.2.200/?action=home')
+    print("Backup firmware upgrade complete")
 
   # If config upload chosen
   if upload_config:
