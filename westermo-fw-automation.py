@@ -9,10 +9,20 @@ import os
 from apufunktiot import *
 import time 
 
+# Firewall IPs
+default_IP = "https://192.168.2.200"
+service_IP = "https://192.168.200.1"
+
+# Firmware versions
+current_firmware_version = "4.32.1"
+current_bootloader_version = "2017.12.0-8"
+
+
 # Current users Downloads folder path
 downloads_path = str(Path.home() / "Downloads")
 # Firmware update file path: "Current working directory + \Update file name"
-firmware_file_path = resource_path('WeOS-4.32.1.pkg')
+firmware_file_path = resource_path('WeOS-' + current_firmware_version + '.pkg')
+
 
 #Webdriver options and preferences
 options = webdriver.ChromeOptions()
@@ -35,7 +45,6 @@ sleep_time = 35
 driver = webdriver.Chrome(executable_path=resource_path('./driver/chromedriver.exe'), options=options)
 driver.implicitly_wait(10)
 
-run = True
 def main():
       
   print("\n##### WESTERMO FW AUTOMATION #####\n")
@@ -66,16 +75,34 @@ def main():
       print('Config backup will be downloaded to ' + downloads_path)
 
 
-  print("\nConnecting to https://192.168.2.200...")
-  try:
-    driver.get('https://192.168.2.200')
-  except:
-    print("Could not connect to 192.168.2.200, check network interface IP")
-    print("Exiting application in 5 seconds")
-    time.sleep(5)
-    sys.exit()
-
-  print("Connected to https://192.168.2.200")
+  while True:
+    try:
+          # Login to Westermo default address with default credentials
+        print("Connecting to " + default_IP + "...")
+        driver.get(default_IP)
+        
+    except:
+        try: 
+            # If default IP doesn't work login to Westermo Wärstilä Service IP
+            # address with default credentials
+            print("Trying with Wärtsilä service IP...")
+            driver.get(service_IP)
+        except:
+            print('Could not connect to WeOS, check connection.')
+            print("Exiting application.")
+            driver.quit_driver()
+            sys.exit()
+        else:
+          # Set target IP to Wärtsilä service IP
+          target_ip = service_IP
+          break
+      
+    else:
+      # Set target IP to Westermo default IP
+      target_ip = default_IP
+      break
+  
+  print("Connected to " + target_ip)
 
   # Find texbox for username and enter information
   user = driver.find_element(By.ID, "uname").send_keys('admin')
@@ -91,11 +118,12 @@ def main():
   bootloader_version = driver.find_element(By.XPATH, "//*[@id='value_bootload_ver']").text
   driver.find_element(By.XPATH, "//*[@id='menu_status']").click()  # Back to status menu
   
-  print("Primary firmare:\t" + primary_version)
+  print("\nPrimary firmare:\t" + primary_version)
   print("Backup firmaware:\t" + backup_version)
   print("Bootloader version:\t" + bootloader_version)
+  print("")
   
-  
+
   ##################################### 
   ##      BOOT FIRMWARE UPGRADE      ##
   #####################################
@@ -128,11 +156,11 @@ def main():
   #######################################3
   if primary_version != "4.32.1":
     try:
-      driver.get('https://192.168.2.200/?action=home')
+      driver.get(target_ip)
     except:
-      print("Could not connect to 192.168.2.200, check network interface IP")
+      print("Could not connect to " + target_ip + " , check network interface IP")
       print("Exiting application")
-      exit()
+      sys.exit()
 
     # Find texbox for username and enter information
     user = driver.find_element(By.ID, "uname").send_keys('admin')
@@ -165,11 +193,11 @@ def main():
   ######################################
   if backup_version != "4.32.1":
     try:
-      driver.get('https://192.168.2.200/?action=home')
+      driver.get(target_ip)
     except:
-      print("Could not connect to 192.168.2.200, check network interface IP")
+      print("Could not connect to " + target_ip + " , check network interface IP")
       print("Exiting application")
-      exit()
+      sys.exit()
     # Find texbox for username and enter information
     user = driver.find_element(By.ID, "uname").send_keys('admin')
     # Find texbox for password, enter password and login
@@ -193,18 +221,17 @@ def main():
     # Wait until the upgrade is ready
     print("Waiting for", sleep_time, " seconds")
     time.sleep(sleep_time)
-    driver.get('https://192.168.2.200/?action=home')
+    driver.get(target_ip)
     print("Backup firmware upgrade complete")
 
   # If config upload chosen
   if upload_config:
     try:
-      driver.get('https://192.168.2.200/?action=home')
+      driver.get(target_ip)
     except:
-      print("Could not connect to 192.168.2.200, check network interface IP")
+      print("Could not connect to " + target_ip + " , check network interface IP")
       print("Exiting application")
-      exit()
-
+      sys.exit()
     ##############################
     ##    CONFIG FILE UPLOAD    ##
     ##############################
@@ -259,12 +286,11 @@ def main():
 
         print("Config backup downloaded to ", downloads_path)
     
-  print("Script complete.")
 
 
 while True:
   main()
-  if not y_or_n("Run script again?"):
+  if not y_or_n("\nScript complete. Run script again?"):
         break
   else:
         continue

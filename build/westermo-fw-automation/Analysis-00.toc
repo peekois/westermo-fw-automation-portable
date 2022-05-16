@@ -911,10 +911,6 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\lib\\multiprocessing\\__init__.py',
    'PYMODULE'),
-  ('_py_abc',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\lib\\_py_abc.py',
-   'PYMODULE'),
   ('tracemalloc',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\lib\\tracemalloc.py',
@@ -922,6 +918,10 @@
   ('stringprep',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\lib\\stringprep.py',
+   'PYMODULE'),
+  ('_py_abc',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\lib\\_py_abc.py',
    'PYMODULE'),
   ('apufunktiot',
    'C:\\Users\\peetu.koistinen\\Documents\\Local tools\\Westermo update '
@@ -1441,13 +1441,13 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\DLLs\\_uuid.pyd',
    'EXTENSION'),
-  ('libssl-1_1.dll',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\DLLs\\libssl-1_1.dll',
-   'BINARY'),
   ('libcrypto-1_1.dll',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\DLLs\\libcrypto-1_1.dll',
+   'BINARY'),
+  ('libssl-1_1.dll',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.10_3.10.1264.0_x64__qbz5n2kfra8p0\\DLLs\\libssl-1_1.dll',
    'BINARY'),
   ('libffi-7.dll',
    'C:\\Program '
@@ -1459,26 +1459,29 @@
    'C:\\Users\\peetu.koistinen\\Documents\\Local tools\\Westermo update '
    'script\\westermo-fw-automation-portable\\build\\westermo-fw-automation\\base_library.zip',
    'DATA'),
-  ('selenium\\webdriver\\remote\\isDisplayed.js',
-   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\remote\\isDisplayed.js',
+  ('selenium\\webdriver\\common\\devtools\\v99\\py.typed',
+   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\common\\devtools\\v99\\py.typed',
    'DATA'),
   ('certifi\\cacert.pem',
    'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\certifi\\cacert.pem',
    'DATA'),
-  ('selenium\\webdriver\\common\\devtools\\v99\\py.typed',
-   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\common\\devtools\\v99\\py.typed',
-   'DATA'),
-  ('selenium\\webdriver\\common\\mutation-listener.js',
-   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\common\\mutation-listener.js',
+  ('selenium\\webdriver\\firefox\\webdriver_prefs.json',
+   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\firefox\\webdriver_prefs.json',
    'DATA'),
   ('selenium\\webdriver\\remote\\getAttribute.js',
    'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\remote\\getAttribute.js',
    'DATA'),
+  ('selenium\\webdriver\\common\\devtools\\v85\\py.typed',
+   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\common\\devtools\\v85\\py.typed',
+   'DATA'),
+  ('selenium\\webdriver\\common\\mutation-listener.js',
+   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\common\\mutation-listener.js',
+   'DATA'),
   ('selenium\\webdriver\\common\\devtools\\v97\\py.typed',
    'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\common\\devtools\\v97\\py.typed',
    'DATA'),
-  ('selenium\\py.typed',
-   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\py.typed',
+  ('selenium\\webdriver\\remote\\isDisplayed.js',
+   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\remote\\isDisplayed.js',
    'DATA'),
   ('selenium\\webdriver\\remote\\findElements.js',
    'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\remote\\findElements.js',
@@ -1486,10 +1489,7 @@
   ('selenium\\webdriver\\common\\devtools\\v98\\py.typed',
    'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\common\\devtools\\v98\\py.typed',
    'DATA'),
-  ('selenium\\webdriver\\firefox\\webdriver_prefs.json',
-   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\firefox\\webdriver_prefs.json',
-   'DATA'),
-  ('selenium\\webdriver\\common\\devtools\\v85\\py.typed',
-   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\webdriver\\common\\devtools\\v85\\py.typed',
+  ('selenium\\py.typed',
+   'C:\\Users\\peetu.koistinen\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python310\\site-packages\\selenium\\py.typed',
    'DATA')],
  [])
