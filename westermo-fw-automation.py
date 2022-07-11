@@ -13,8 +13,16 @@ default_IP = "https://192.168.2.200"
 service_IP = "https://192.168.200.1"
 
 # Firmware versions
-current_firmware_version = "4.32.1"
+current_firmware_version = "4.32.2"
 current_bootloader_version = "2017.12.0-8"
+
+# Get resource path
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.dirname(__file__)
+    return os.path.join(base_path, relative_path)
 
 
 # Current users Downloads folder path
