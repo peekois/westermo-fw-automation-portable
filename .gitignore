@@ -12,3 +12,5 @@ build/westermo-fw-automation/westermo-fw-automation-WeOS-4.32.1.pkg
 build/westermo-fw-automation/westermo-fw-automation.pkg
 dist/westermo-fw-automation-v2-WeOS-4.32.1.exe
 dist/westermo-fw-automation-WeOS-4.32.1.exe
+build
+dist
