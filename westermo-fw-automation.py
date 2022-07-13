@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from pathlib import Path
 import sys
 import os
@@ -38,11 +40,12 @@ options.add_argument('--safebrowsing-disable-download-protection')
 options.add_argument('safebrowsing-disable-extension-blacklist')
 options.add_argument('log-level=3')     ## removes unnecessary logging to CMD
 options.add_experimental_option('excludeSwitches', ['enable-logging'])  ## removes DevTool messages to CMD
-options.add_experimental_option("prefs", {
+prefs = {
   "download.default_directory": downloads_path,
   "download.prompt_for_download": False,
   "safebrowsing.enabled": True
-})
+}
+options.add_experimental_option("prefs", prefs)
 # Run Chrome headless
 options.headless = True
 # sleep time after FW upgrade
@@ -123,7 +126,8 @@ def main():
   primary_version = driver.find_element(By.XPATH, "//*[@id='value_fw_ver']").text
   backup_version = driver.find_element(By.XPATH, "//*[@id='value_bkp_fw_ver']").text
   bootloader_version = driver.find_element(By.XPATH, "//*[@id='value_bootload_ver']").text
-  driver.find_element(By.XPATH, "//*[@id='menu_status']").click()  # Back to status menu
+  #driver.find_element(By.XPATH, "//*[@id='menu_status']").click()  # Back to status menu
+  WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='menu_status']"))).click()
   
   print("\nPrimary firmare:\t" + primary_version)
   print("Backup firmaware:\t" + backup_version)
@@ -134,7 +138,7 @@ def main():
   ##################################### 
   ##      BOOT FIRMWARE UPGRADE      ##
   #####################################
-  if bootloader_version != "2017.12.0-8":
+  if bootloader_version != current_bootloader_version:
     # Navigate to maintenance menu
     maintenance = driver.find_element(By.ID, "menu_maintenance").click()
     # Navigate to maintenance menu
@@ -161,7 +165,7 @@ def main():
   ########################################
   ##      PRIMARY FIRMWARE UPGRADE      ##
   #######################################3
-  if primary_version != "4.32.1":
+  if primary_version != current_firmware_version:
     try:
       driver.get(target_ip)
     except:
@@ -198,7 +202,7 @@ def main():
   ######################################
   ##      BACKUP FIRMWARE UPGRADE     ##
   ######################################
-  if backup_version != "4.32.1":
+  if backup_version != current_firmware_version:
     try:
       driver.get(target_ip)
     except:
@@ -264,6 +268,7 @@ def main():
       time.sleep(5)
       print("Connected to https://192.168.200.1")
       # Find texbox for username and enter information
+      time.sleep(1)
       user = driver.find_element(By.ID, "uname").send_keys('admin')
       # Find texbox for password, enter password and login
       password = driver.find_element(By.ID, "pass").send_keys('westermo' + Keys.ENTER)
